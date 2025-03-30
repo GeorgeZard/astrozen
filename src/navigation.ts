@@ -1,4 +1,5 @@
 import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
+import type { MenuLink, CallToAction } from '~/types';
 
 export const headerData = {
   links: [
@@ -20,6 +21,10 @@ export const headerData = {
         {
           text: 'Personal',
           href: getPermalink('/homes/personal'),
+        },
+        {
+          text: 'ZenZe',
+          href: getPermalink('/homes/zenze'),
         },
       ],
     },
@@ -116,6 +121,50 @@ export const headerData = {
     },
   ],
   actions: [{ text: 'Download', href: 'https://github.com/onwidget/astrowind', target: '_blank' }],
+};
+
+// Custom ZenZen header data
+export const zenHeaderData: {
+  links: MenuLink[];
+  actions: CallToAction[];
+  isSticky: boolean;
+  isDark: boolean;
+  isFullWidth: boolean;
+  showToggleTheme: boolean;
+  showRssFeed: boolean;
+  position: string;
+} = {
+  links: [
+    {
+      text: 'Services',
+      href: '#services',
+    },
+    {
+      text: 'Results',
+      href: '#case-studies',
+    },
+    {
+      text: 'Pricing',
+      href: '#pricing',
+    },
+    {
+      text: 'Contact',
+      href: '#contact',
+    },
+  ],
+  actions: [
+    {
+      text: 'Get Started',
+      href: '#contact',
+      variant: 'primary',
+    },
+  ],
+  isSticky: true,
+  isDark: true,
+  isFullWidth: false,
+  showToggleTheme: false,
+  showRssFeed: false,
+  position: 'right',
 };
 
 export const footerData = {

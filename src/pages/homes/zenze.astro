@@ -1,0 +1,75 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import ZenHero from '~/components/widgets/hero/ZenHero.astro';
+import ZenServices from '~/components/widgets/services/ZenServices.astro';
+import ZenCaseStudies from '~/components/widgets/case-studies/ZenCaseStudies.astro';
+import Header from '~/components/widgets/Header.astro';
+import { zenHeaderData } from '~/navigation';
+import type { CallToAction } from '~/types';
+
+const metadata = {
+  title: 'ZenZen - Fast websites with smart insights',
+};
+
+// Define actions for the hero section
+const actions: CallToAction[] = [
+  {
+    variant: 'primary',
+    text: 'Get Started',
+    href: '#contact',
+    icon: 'tabler:chevron-right',
+  },
+  {
+    variant: 'secondary',
+    text: 'Explore Services',
+    href: '#services',
+  },
+];
+
+// Title with HTML that needs to be passed properly
+const heroTitle = "Fast websites. <br /> <span class=\"zen-gradient-text\">Smart insights.</span>";
+---
+
+<Layout metadata={metadata}>
+  <!-- Header -->
+  <Fragment slot="header">
+    <Header {...zenHeaderData} isSticky/>
+  </Fragment>
+
+  <!-- Hero Section -->
+  <ZenHero
+    title={heroTitle}
+    subtitle="We create websites that load instantly, are easy to manage, and help you understand your customers better."
+    tagline="Founded 2025"
+    actions={actions}
+  />
+  
+  <!-- Services Section -->
+  <ZenServices />
+  
+  <!-- Case Studies Section -->
+  <ZenCaseStudies />
+  
+  <!-- Pricing Section will go here -->
+  
+  <!-- Contact Section will go here -->
+</Layout>
+
+<style>
+  /* Add any page-specific styles here */
+  :global(.primary) {
+    @apply bg-gradient-to-r from-purple-500 to-teal-500 px-5 py-2.5 rounded-md font-medium hover:shadow-lg hover:shadow-purple-500/20 transition-all text-white !important;
+  }
+  
+  :global(.dark .aw-link-active) {
+    @apply text-purple-400;
+  }
+  
+  :global(.dark .text-default) {
+    @apply text-gray-200;
+  }
+
+  :global(.dark) {
+    @apply bg-slate-900;
+  }
+</style>

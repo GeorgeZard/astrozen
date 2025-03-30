@@ -181,6 +181,17 @@ export interface Disclaimer {
 }
 
 // COMPONENTS
+export interface Link {
+  text?: string;
+  href?: string;
+  ariaLabel?: string;
+  icon?: string;
+}
+
+export interface MenuLink extends Link {
+  links?: Array<MenuLink>;
+}
+
 export interface CallToAction extends Omit<HTMLAttributes<'a'>, 'slot'> {
   variant?: 'primary' | 'secondary' | 'tertiary' | 'link';
   text?: string;
@@ -216,7 +227,21 @@ export interface Form {
 export interface Hero extends Omit<Headline, 'classes'>, Omit<Widget, 'isDark' | 'classes'> {
   content?: string;
   actions?: string | CallToAction[];
-  image?: string | unknown;
+  image?: string | {
+    src: string;
+    alt?: string;
+    width?: number;
+    height?: number;
+  };
+  isReversed?: boolean;
+  isAfterContent?: boolean;
+  locale?: string;
+  statsItems?: Array<{
+    value: string;
+    label: string;
+    color?: 'purple' | 'teal';
+  }>;
+  visualization?: boolean;
 }
 
 export interface Team extends Omit<Headline, 'classes'>, Widget {

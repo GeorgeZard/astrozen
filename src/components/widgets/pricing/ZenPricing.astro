@@ -1,0 +1,181 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { CallToAction } from '~/types';
+
+export interface PriceItem {
+  title: string;
+  subtitle?: string;
+  price: string | number;
+  period?: string;
+  items?: Array<string>;
+  callToAction?: CallToAction;
+  hasRibbon?: boolean;
+  ribbonTitle?: string;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  prices?: Array<PriceItem>;
+  id?: string;
+}
+
+const {
+  title = "Simple Pricing for Every Need",
+  subtitle = "Choose the plan that fits your business requirements, with flexible options to scale as you grow.",
+  tagline = "Pricing",
+  prices = [
+    {
+      title: "Starter",
+      subtitle: "Perfect for small businesses looking to improve their website performance.",
+      price: "$4,999",
+      period: "one-time",
+      items: [
+        "Fast-loading website",
+        "Basic content management",
+        "Mobile-friendly design",
+        "30 days of support",
+      ],
+      callToAction: {
+        text: "Get Started",
+        href: "#contact",
+      },
+    },
+    {
+      title: "Growth",
+      subtitle: "Ideal for businesses focused on content marketing and lead generation.",
+      price: "$7,999",
+      period: "one-time",
+      items: [
+        "All Starter features",
+        "Visual content editing",
+        "Basic analytics dashboard",
+        "SEO optimization",
+        "60 days of support",
+      ],
+      callToAction: {
+        text: "Get Started",
+        href: "#contact",
+        variant: "primary",
+      },
+      hasRibbon: true,
+      ribbonTitle: "POPULAR",
+    },
+    {
+      title: "Enterprise",
+      subtitle: "Complete solution for businesses serious about data-driven growth.",
+      price: "$12,999",
+      period: "one-time",
+      items: [
+        "All Growth features",
+        "Advanced analytics",
+        "Customer journey mapping",
+        "A/B testing",
+        "Email & CRM integration",
+        "90 days of priority support",
+      ],
+      callToAction: {
+        text: "Get Started",
+        href: "#contact",
+      },
+    },
+  ],
+  id = "pricing",
+} = Astro.props;
+---
+
+<section id={id} class="py-20 px-4 sm:px-6 lg:px-8 relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-slate-900 to-blue-900/10 z-0"></div>
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      {tagline && (
+        <div class="inline-block px-3 py-1 rounded-full bg-blue-900 text-purple-400 text-sm font-medium mb-4">
+          {tagline}
+        </div>
+      )}
+      {title && (
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">
+          {title}
+        </h2>
+      )}
+      {subtitle && (
+        <p class="text-gray-300">
+          {subtitle}
+        </p>
+      )}
+    </div>
+    
+    <div class="grid md:grid-cols-3 gap-8">
+      {prices.map((price, index) => (
+        <div class:list={[
+          "border rounded-xl p-6 transition-all duration-700 hover:shadow-lg hover:shadow-purple-500/10 relative flex flex-col",
+          price.hasRibbon 
+            ? "bg-gradient-to-br from-blue-900/30 to-transparent border-blue-900/40" 
+            : "bg-blue-900/20 border-blue-900/30"
+        ]} style={`transition-delay: ${index * 200}ms`}>
+          {price.hasRibbon && (
+            <div class="absolute top-0 right-0 bg-gradient-to-r from-purple-500 to-teal-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+              {price.ribbonTitle || 'POPULAR'}
+            </div>
+          )}
+          <div class="mb-8 flex-grow">
+            <h3 class="text-xl font-bold mb-2 text-white">{price.title}</h3>
+            <div class="flex items-baseline text-white">
+              <span class="text-3xl font-bold">{price.price}</span>
+              {price.period && <span class="text-gray-400 ml-2">{price.period}</span>}
+            </div>
+            {price.subtitle && <p class="text-gray-300 mt-4">{price.subtitle}</p>}
+          </div>
+          
+          {price.items && (
+            <ul class="space-y-3 mb-8 flex-grow">
+              {price.items.map(item => (
+                <li class="flex items-start">
+                  <Icon name="tabler:circle-check" class="h-5 w-5 text-teal-400 mr-2 flex-shrink-0 mt-0.5" />
+                  <span class="text-gray-200">{item}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          
+          {price.callToAction && (
+            <a 
+              href={price.callToAction.href} 
+              class:list={[
+                "block w-full py-3 px-4 rounded-md text-center font-medium transition-colors",
+                price.callToAction.variant === 'primary' 
+                  ? 'bg-gradient-to-r from-purple-500 to-teal-500 text-white hover:shadow-lg hover:shadow-purple-500/20' 
+                  : 'bg-blue-900/50 border border-blue-900 text-white hover:bg-blue-900/70'
+              ]}
+            >
+              {price.callToAction.text}
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+    
+    <!-- Custom Solution Box -->
+    <div class="mt-12 bg-blue-900/20 border border-blue-900/30 rounded-xl p-6 transition-all duration-1000">
+      <div class="flex flex-col md:flex-row items-center justify-between">
+        <div class="mb-6 md:mb-0 text-center md:text-left">
+          <h3 class="text-xl font-bold mb-2 text-white">Need a custom solution?</h3>
+          <p class="text-gray-300">
+            Contact us for enterprise-level solutions tailored to your specific requirements.
+          </p>
+        </div>
+        <a 
+          href="#contact" 
+          class="bg-blue-900/50 border border-blue-900 px-6 py-3 rounded-md font-medium text-white hover:bg-blue-900/70 transition-colors whitespace-nowrap"
+        >
+          Contact Sales
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Add any component-specific styles here */
+</style>

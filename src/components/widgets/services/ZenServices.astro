@@ -1,0 +1,224 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { CallToAction } from '~/types';
+
+export interface Service {
+  title: string;
+  description: string;
+  icon: string;
+  items?: Array<string>;
+  callToAction?: CallToAction;
+  isPopular?: boolean;
+  classes?: Record<string, string>;
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  services?: Array<Service>;
+  id?: string;
+}
+
+const {
+  title = "Complete Digital Solutions",
+  subtitle = "From websites to email marketing and business analytics, we provide everything you need to grow your digital presence.",
+  tagline = "Our Services",
+  services = [
+    {
+      title: "Website Development",
+      description: "Fast, beautiful websites that are easy to manage and help convert visitors into customers.",
+      icon: "tabler:globe",
+      items: [
+        "Super-fast loading speeds",
+        "Easy-to-use content management",
+        "Mobile-friendly designs",
+        "Search engine optimization"
+      ],
+      callToAction: {
+        text: "Learn more",
+        href: "#contact",
+        icon: "tabler:arrow-right",
+      }
+    },
+    {
+      title: "Marketing Analytics",
+      description: "Understand your customers better with powerful analytics that help you make smarter decisions.",
+      icon: "tabler:chart-bar",
+      items: [
+        "Customer journey tracking",
+        "PostHog integration",
+        "Easy-to-understand dashboards",
+        "Conversion optimization",
+        "A/B testing capabilities"
+      ],
+      callToAction: {
+        text: "Learn more",
+        href: "#contact",
+        icon: "tabler:arrow-right",
+      },
+      isPopular: true
+    },
+    {
+      title: "Email & CRM Solutions",
+      description: "Build stronger relationships with your customers through integrated email and CRM systems.",
+      icon: "tabler:mail",
+      items: [
+        "Email marketing automation",
+        "CRM system integration",
+        "Customer segmentation",
+        "Personalized campaigns",
+        "Lead nurturing workflows"
+      ],
+      callToAction: {
+        text: "Learn more",
+        href: "#contact",
+        icon: "tabler:arrow-right",
+      }
+    }
+  ],
+  id = "services",
+} = Astro.props;
+---
+
+<section id={id} class="py-20 px-4 sm:px-6 lg:px-8 relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-slate-900 to-blue-900/10 z-0"></div>
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      {tagline && (
+        <div class="inline-block px-3 py-1 rounded-full bg-blue-900 text-purple-400 text-sm font-medium mb-4">
+          {tagline}
+        </div>
+      )}
+      {title && (
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">
+          {title}
+        </h2>
+      )}
+      {subtitle && (
+        <p class="text-gray-300">
+          {subtitle}
+        </p>
+      )}
+    </div>
+    
+    <div class="grid md:grid-cols-3 gap-8">
+      {services.map((service, index) => (
+        <div class:list={[
+          "bg-gradient-to-br border rounded-xl p-6 transition-all duration-700 hover:shadow-lg hover:shadow-purple-500/10",
+          service.isPopular 
+            ? "from-blue-900/30 to-transparent border-blue-900/40" 
+            : "from-blue-900/20 to-transparent border-blue-900/30"
+        ]} style={`transition-delay: ${index * 200}ms`}>
+          {service.isPopular && (
+            <div class="absolute top-0 right-0 bg-gradient-to-r from-purple-500 to-teal-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">
+              POPULAR
+            </div>
+          )}
+          <div class="h-12 w-12 rounded-lg bg-blue-900 flex items-center justify-center mb-6">
+            <Icon name={service.icon} class="h-6 w-6 text-purple-400" />
+          </div>
+          <h3 class="text-xl font-bold mb-3 text-white">{service.title}</h3>
+          <p class="text-gray-300 mb-6">
+            {service.description}
+          </p>
+          {service.items && (
+            <ul class="space-y-3 mb-8">
+              {service.items.map(item => (
+                <li class="flex items-start">
+                  <Icon name="tabler:circle-check" class="h-5 w-5 text-teal-400 mr-2 flex-shrink-0 mt-0.5" />
+                  <span class="text-gray-200">{item}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+          {service.callToAction && (
+            <a 
+              href={service.callToAction.href} 
+              class="inline-flex items-center text-purple-400 hover:text-teal-400 transition-colors"
+            >
+              {service.callToAction.text} {service.callToAction.icon && <Icon name={service.callToAction.icon} class="ml-2 h-4 w-4" />}
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+    
+    <!-- Additional Services Section -->
+    <div class="grid md:grid-cols-2 gap-8 mt-12">
+      <!-- Business Consulting Service -->
+      <div class="bg-gradient-to-br from-blue-900/20 to-transparent border border-blue-900/30 rounded-xl p-6 transition-all duration-700 hover:shadow-lg hover:shadow-purple-500/10">
+        <div class="flex items-start">
+          <div class="h-12 w-12 rounded-lg bg-blue-900 flex items-center justify-center flex-shrink-0">
+            <Icon name="tabler:message" class="h-6 w-6 text-purple-400" />
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-bold mb-3 text-white">Business Consulting</h3>
+            <p class="text-gray-300 mb-4">
+              Strategic guidance to help you make the most of your digital presence and marketing efforts.
+            </p>
+            <ul class="space-y-2 mb-4">
+              <li class="flex items-start">
+                <Icon name="tabler:circle-check" class="h-5 w-5 text-teal-400 mr-2 flex-shrink-0 mt-0.5" />
+                <span class="text-gray-200">Digital strategy development</span>
+              </li>
+              <li class="flex items-start">
+                <Icon name="tabler:circle-check" class="h-5 w-5 text-teal-400 mr-2 flex-shrink-0 mt-0.5" />
+                <span class="text-gray-200">Growth planning</span>
+              </li>
+              <li class="flex items-start">
+                <Icon name="tabler:circle-check" class="h-5 w-5 text-teal-400 mr-2 flex-shrink-0 mt-0.5" />
+                <span class="text-gray-200">Quarterly performance reviews</span>
+              </li>
+            </ul>
+            <a 
+              href="#contact" 
+              class="inline-flex items-center text-purple-400 hover:text-teal-400 transition-colors"
+            >
+              Learn more <Icon name="tabler:arrow-right" class="ml-2 h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- System Integrations Service -->
+      <div class="bg-gradient-to-br from-blue-900/20 to-transparent border border-blue-900/30 rounded-xl p-6 transition-all duration-700 hover:shadow-lg hover:shadow-purple-500/10">
+        <div class="flex items-start">
+          <div class="h-12 w-12 rounded-lg bg-blue-900 flex items-center justify-center flex-shrink-0">
+            <Icon name="tabler:edit" class="h-6 w-6 text-purple-400" />
+          </div>
+          <div class="ml-4">
+            <h3 class="text-xl font-bold mb-3 text-white">System Integrations</h3>
+            <p class="text-gray-300 mb-4">
+              Connect all your business tools to work together seamlessly for better efficiency.
+            </p>
+            <ul class="space-y-2 mb-4">
+              <li class="flex items-start">
+                <Icon name="tabler:circle-check" class="h-5 w-5 text-teal-400 mr-2 flex-shrink-0 mt-0.5" />
+                <span class="text-gray-200">CRM integrations (Salesforce, HubSpot)</span>
+              </li>
+              <li class="flex items-start">
+                <Icon name="tabler:circle-check" class="h-5 w-5 text-teal-400 mr-2 flex-shrink-0 mt-0.5" />
+                <span class="text-gray-200">Analytics platforms (PostHog, Google)</span>
+              </li>
+              <li class="flex items-start">
+                <Icon name="tabler:circle-check" class="h-5 w-5 text-teal-400 mr-2 flex-shrink-0 mt-0.5" />
+                <span class="text-gray-200">E-commerce systems</span>
+              </li>
+            </ul>
+            <a 
+              href="#contact" 
+              class="inline-flex items-center text-purple-400 hover:text-teal-400 transition-colors"
+            >
+              Learn more <Icon name="tabler:arrow-right" class="ml-2 h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Add any component-specific styles here */
+</style>

@@ -1,0 +1,190 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { CallToAction } from '~/types';
+
+export interface CaseStudy {
+  title: string;
+  description: string;
+  metric: string;
+  metricLabel: string;
+  clientName: string;
+  clientIndustry: string;
+  beforeValue?: string;
+  afterValue?: string;
+  beforeWidth?: string;
+  afterWidth?: string;
+  callToAction?: CallToAction;
+  icon?: string;
+  iconColor?: 'purple' | 'teal';
+}
+
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  caseStudies?: Array<CaseStudy>;
+  id?: string;
+}
+
+const {
+  title = "Real Results for Real Businesses",
+  subtitle = "See how our clients have achieved remarkable improvements in performance, user experience, and conversions.",
+  tagline = "Success Stories",
+  caseStudies = [
+    {
+      title: "Fashion Retailer",
+      description: "A luxury fashion retailer saw a 5x improvement in page load times and a 32% increase in sales after upgrading their website.",
+      metric: "5x",
+      metricLabel: "Faster Loading",
+      clientName: "Fashion Retailer",
+      clientIndustry: "E-commerce Store",
+      beforeValue: "3.2s",
+      afterValue: "0.6s",
+      beforeWidth: "20%",
+      afterWidth: "100%",
+      callToAction: { text: "View case study", href: "#contact", icon: "tabler:arrow-right" },
+      icon: "tabler:users",
+      iconColor: "purple",
+    },
+    {
+      title: "Software Company",
+      description: "A B2B software company implemented our analytics solution and saw a 42% increase in trial-to-paid conversions.",
+      metric: "42%",
+      metricLabel: "More Customers",
+      clientName: "Software Company",
+      clientIndustry: "B2B Services",
+      beforeValue: "8.3%",
+      afterValue: "11.8%",
+      callToAction: { text: "View case study", href: "#contact", icon: "tabler:arrow-right" },
+      icon: "tabler:chart-bar",
+      iconColor: "teal",
+    },
+    {
+      title: "Media Publisher",
+      description: "A digital media publisher reduced bounce rates by 65% and increased average session duration by 3.2x after upgrading their site.",
+      metric: "65%",
+      metricLabel: "Fewer Bounces",
+      clientName: "Media Publisher",
+      clientIndustry: "News & Content",
+      beforeValue: "68%",
+      afterValue: "24%",
+      beforeWidth: "68%",
+      afterWidth: "24%",
+      callToAction: { text: "View case study", href: "#contact", icon: "tabler:arrow-right" },
+      icon: "tabler:edit", // Corrected icon name
+      iconColor: "purple",
+    },
+  ],
+  id = "case-studies",
+} = Astro.props;
+---
+
+<section id={id} class="py-20 px-4 sm:px-6 lg:px-8 relative">
+  <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-slate-900 z-0"></div>
+  <div class="max-w-7xl mx-auto relative z-10">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      {tagline && (
+        <div class="inline-block px-3 py-1 rounded-full bg-blue-900 text-purple-400 text-sm font-medium mb-4">
+          {tagline}
+        </div>
+      )}
+      {title && (
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">
+          {title}
+        </h2>
+      )}
+      {subtitle && (
+        <p class="text-gray-300">
+          {subtitle}
+        </p>
+      )}
+    </div>
+    
+    <div class="grid md:grid-cols-3 gap-8">
+      {caseStudies.map((study, index) => (
+        <div class="bg-blue-900/20 border border-blue-900/30 rounded-xl overflow-hidden transition-all duration-700 hover:shadow-lg hover:shadow-purple-500/10" style={`transition-delay: ${index * 200}ms`}>
+          <div class="h-48 bg-gradient-to-br from-blue-900 to-slate-900 relative">
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="text-center">
+                <div class="text-4xl font-bold text-white">{study.metric}</div>
+                <div class="text-sm text-gray-300">{study.metricLabel}</div>
+              </div>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <div class:list={[
+                "h-10 w-10 rounded-full flex items-center justify-center",
+                study.iconColor === 'purple' ? 'bg-purple-500/20' : 'bg-teal-500/20'
+              ]}>
+                <Icon name={study.icon} class:list={[
+                  "h-5 w-5",
+                  study.iconColor === 'purple' ? 'text-purple-400' : 'text-teal-400'
+                ]} />
+              </div>
+              <div class="ml-3">
+                <h3 class="font-bold text-white">{study.clientName}</h3>
+                <p class="text-sm text-gray-400">{study.clientIndustry}</p>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">
+              {study.description}
+            </p>
+            {study.beforeValue && study.afterValue && (
+              <div class="space-y-3 mb-4">
+                {study.beforeWidth && (
+                  <div>
+                    <div class="flex justify-between text-sm mb-1 text-gray-400">
+                      <span>Before</span>
+                      <span>{study.beforeValue}</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                      <div class="bg-gray-400 h-2 rounded-full" style={`width: ${study.beforeWidth}`}></div>
+                    </div>
+                  </div>
+                )}
+                {study.afterWidth && (
+                  <div>
+                    <div class="flex justify-between text-sm mb-1 text-gray-400">
+                      <span>After</span>
+                      <span>{study.afterValue}</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                      <div class="bg-gradient-to-r from-purple-500 to-teal-500 h-2 rounded-full" style={`width: ${study.afterWidth}`}></div>
+                    </div>
+                  </div>
+                )}
+                {!study.beforeWidth && !study.afterWidth && (
+                   <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-blue-900/30 p-3 rounded-lg text-center">
+                      <div class="text-sm text-gray-400 mb-1">Before</div>
+                      <div class="text-xl font-bold text-white">{study.beforeValue}</div>
+                      <div class="text-xs text-gray-400">Conversion Rate</div>
+                    </div>
+                    <div class="bg-blue-900/30 p-3 rounded-lg text-center">
+                      <div class="text-sm text-gray-400 mb-1">After</div>
+                      <div class="text-xl font-bold text-teal-400">{study.afterValue}</div>
+                      <div class="text-xs text-gray-400">Conversion Rate</div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+            {study.callToAction && (
+              <a 
+                href={study.callToAction.href} 
+                class="inline-flex items-center text-purple-400 hover:text-teal-400 transition-colors"
+              >
+                {study.callToAction.text} {study.callToAction.icon && <Icon name={study.callToAction.icon} class="ml-2 h-4 w-4" />}
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Add any component-specific styles here */
+</style>

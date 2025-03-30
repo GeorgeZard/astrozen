@@ -1,0 +1,16 @@
+<style is:global>
+    /* ZenZen theme colors and utilities */
+    :root {
+      --zen-primary: theme('colors.purple.500');
+      --zen-secondary: theme('colors.teal.500');
+      --zen-dark-bg: theme('colors.slate.900');
+    }
+    
+    .zen-gradient-text {
+      @apply bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-teal-400;
+    }
+    
+    .zen-gradient-bg {
+      @apply bg-gradient-to-r from-purple-500 to-teal-500;
+    }
+  </style>
