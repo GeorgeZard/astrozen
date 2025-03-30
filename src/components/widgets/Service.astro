@@ -1,0 +1,85 @@
+---
+import WidgetWrapper from '~/components/ui/WidgetWrapper.astro';
+import Headline from '~/components/ui/Headline.astro';
+import { Icon } from 'astro-icon/components';
+import { twMerge } from 'tailwind-merge';
+import Button from '~/components/ui/Button.astro';
+import type { Services as Props } from '~/types';
+
+
+const {
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline = await Astro.slots.render('tagline'),
+  items = [],
+  columns = 3,
+
+  id,
+  isDark = false,
+  classes = {},
+  bg = await Astro.slots.render('bg'),
+} = Astro.props;
+---
+
+<WidgetWrapper id={id} isDark={isDark} containerClass={classes?.container as string ?? ''} bg={bg}>
+  <Headline
+    title={title}
+    subtitle={subtitle}
+    tagline={tagline}
+    classes={{
+      container: 'max-w-3xl',
+      ...((classes?.headline as Record<string, string>) ?? {}),
+    }}
+  />
+
+  <!-- Service cards grid -->
+  <div class={twMerge(
+    `grid gap-y-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-${columns} md:gap-x-6 lg:gap-x-8`,
+    classes?.grid as string ?? ''
+  )}>
+    {items && items.map((item) => (
+      <div class="intersect-once intersect-quarter motion-safe:md:opacity-0 motion-safe:md:intersect:animate-fade">
+        <div class="h-full rounded-md bg-white dark:bg-slate-900 shadow-md p-6">
+          {item.icon && (
+            <div class="mb-4 flex items-center justify-center w-12 h-12">
+              <Icon
+                name={item.icon}
+                class={twMerge(
+                  'w-10 h-10 p-2 rounded-md',
+                  item.iconBackground ? `bg-${item.iconBackground}-100 dark:bg-${item.iconBackground}-900/30` : 'bg-primary/10 dark:bg-primary/20',
+                  item.iconColor ? `text-${item.iconColor}-500 dark:text-${item.iconColor}-400` : 'text-primary',
+                  item.classes?.icon ?? ''
+                )}
+              />
+            </div>
+          )}
+          
+          {item.title && (
+            <h4 class={twMerge('text-lg font-bold mb-2', item.classes?.title ?? '')}>
+              {item.title}
+            </h4>
+          )}
+          
+          {item.description && (
+            <p class={twMerge('text-muted mb-4', item.classes?.description ?? '')}>
+              {item.description}
+            </p>
+          )}
+          
+          {item.callToAction && (
+            <div class="mt-2">
+              <Button
+                {...item.callToAction}
+                variant="link"
+                class={twMerge('p-0 font-medium', 
+                  item.iconColor ? `text-${item.iconColor}-500 hover:text-${item.iconColor}-600 dark:text-${item.iconColor}-400 dark:hover:text-${item.iconColor}-300` : '',
+                  item.classes?.button ?? ''
+                )}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</WidgetWrapper>

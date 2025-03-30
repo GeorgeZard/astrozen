@@ -2,6 +2,7 @@
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import Content from '~/components/widgets/Content.astro';
 import Features2 from '~/components/widgets/Features2.astro';
+import Service from '~/components/widgets/Service.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Testimonials from '~/components/widgets/Testimonials.astro';
 import Layout from '~/layouts/PageLayout.astro';
@@ -168,7 +169,80 @@ const metadata = {
   </Content>
 
   <!-- Testimonials Widget *********** -->
-
+  <Service
+  tagline="Our Expertise"
+  title="Discover our specialized services"
+  subtitle="We provide a range of professional services to help your business succeed in the digital landscape."
+  columns={3}
+  items={[
+    {
+      title: 'UI/UX Design',
+      description: 'Create intuitive and engaging user experiences with our professional design services.',
+      icon: 'tabler:palette',
+      iconColor: 'purple',
+      callToAction: {
+        text: 'Explore Design Services',
+        href: '#',
+        icon: 'tabler:chevron-right',
+      },
+    },
+    {
+      title: 'App Development',
+      description: 'Custom mobile applications for iOS and Android platforms to reach your users wherever they are.',
+      icon: 'tabler:device-mobile',
+      iconColor: 'indigo',
+      callToAction: {
+        text: 'Our Development Process',
+        href: '#',
+        icon: 'tabler:chevron-right',
+      },
+    },
+    {
+      title: 'Digital Marketing',
+      description: 'Strategic marketing solutions to increase your online presence and drive targeted traffic.',
+      icon: 'tabler:chart-line',
+      iconColor: 'teal',
+      callToAction: {
+        text: 'Marketing Solutions',
+        href: '#',
+        icon: 'tabler:chevron-right',
+      },
+    },
+    {
+      title: 'Web Development',
+      description: 'Professional websites that are responsive, fast, and optimized for search engines.',
+      icon: 'tabler:code',
+      iconColor: 'blue',
+      callToAction: {
+        text: 'Web Development Services',
+        href: '#',
+        icon: 'tabler:chevron-right',
+      },
+    },
+    {
+      title: 'Content Creation',
+      description: 'Engaging content that tells your brand story and connects with your target audience.',
+      icon: 'tabler:article',
+      iconColor: 'orange',
+      callToAction: {
+        text: 'Content Services',
+        href: '#',
+        icon: 'tabler:chevron-right',
+      },
+    },
+    {
+      title: 'Analytics & Reporting',
+      description: 'Data-driven insights to measure performance and guide strategic decisions.',
+      icon: 'tabler:chart-bar',
+      iconColor: 'green',
+      callToAction: {
+        text: 'Analytics Solutions',
+        href: '#',
+        icon: 'tabler:chevron-right',
+      },
+    },
+  ]}
+/>
   <Testimonials
     title="Words from real customers"
     testimonials={[
